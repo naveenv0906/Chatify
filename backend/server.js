@@ -1,6 +1,5 @@
 import path from "path";
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
@@ -9,8 +8,6 @@ import userRoutes from "./routes/user.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
-
-dotenv.config();
 
 const __dirname = path.resolve();
 const PORT = process.env.PORT || 5000;
@@ -36,8 +33,9 @@ app.use((err, req, res, next) => {
 
 server.listen(PORT, () => {
 	connectToMongoDB().then(() => {
-		console.log(`Server Running on port ${PORT}`);
+		console.log(`Open http://localhost:${PORT} to access the server`);
 	}).catch(err => {
 		console.error("Error connecting to MongoDB", err.message);
 	});
 });
+

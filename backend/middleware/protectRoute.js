@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import User from "../models/userchat.model.js";
 
-const JWT_SECRET = 'your_hardcoded_secret_key_here'; // Replace this with your actual secret
+dotenv.config();
 
 const protectRoute = async (req, res, next) => {
 	try {
@@ -11,7 +12,7 @@ const protectRoute = async (req, res, next) => {
 			return res.status(401).json({ error: "Unauthorized - No Token Provided" });
 		}
 
-		const decoded = jwt.verify(token, JWT_SECRET);
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
 		if (!decoded) {
 			return res.status(401).json({ error: "Unauthorized - Invalid Token" });

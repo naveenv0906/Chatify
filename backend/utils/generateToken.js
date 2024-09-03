@@ -1,11 +1,10 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-// Hard-coded JWT secret key
-const JWT_SECRET = 'your_hardcoded_secret_key_here';
+dotenv.config();
 
 const generateTokenAndSetCookie = (userId, res) => {
-    // Use the hard-coded secret key
-    const token = jwt.sign({ userId }, JWT_SECRET, {
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
         expiresIn: "15d",
     });
 
